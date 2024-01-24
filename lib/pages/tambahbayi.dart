@@ -12,7 +12,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:async/async.dart';
 import 'package:path/path.dart' as path;
 import 'package:simpasi/const.dart';
-import 'package:simpasi/pages/homebaby.dart';
 
 class TambahBayi extends StatefulWidget {
   const TambahBayi({super.key});
@@ -350,7 +349,7 @@ class _TambahBayiState extends State<TambahBayi> {
                     isDense: false,
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    prefixIcon: const Icon(Icons.visibility,
+                    prefixIcon: const Icon(Icons.monitor_weight,
                         color: Color(0xff212435), size: 24),
                   ),
                 ),
@@ -396,7 +395,7 @@ class _TambahBayiState extends State<TambahBayi> {
                     isDense: false,
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    prefixIcon: const Icon(Icons.visibility,
+                    prefixIcon: const Icon(Icons.height,
                         color: Color(0xff212435), size: 24),
                   ),
                 ),
@@ -442,7 +441,7 @@ class _TambahBayiState extends State<TambahBayi> {
                     isDense: false,
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    prefixIcon: const Icon(Icons.visibility,
+                    prefixIcon: const Icon(Icons.roundabout_left,
                         color: Color(0xff212435), size: 24),
                   ),
                 ),

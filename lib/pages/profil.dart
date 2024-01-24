@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simpasi/const.dart';
-import 'package:simpasi/pages/homebaby.dart';
-import 'package:simpasi/pages/tambahbayi.dart';
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -15,7 +13,7 @@ class Profil extends StatefulWidget {
 
 class _ProfilState extends State<Profil> {
   var arguments = Get.arguments;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,8 +112,8 @@ class _ProfilState extends State<Profil> {
                           decoration: BoxDecoration(
                             color: const Color(0xfff26b00),
                             shape: BoxShape.circle,
-                            border:
-                                Border.all(color: const Color(0x4d9e9e9e), width: 1),
+                            border: Border.all(
+                                color: const Color(0x4d9e9e9e), width: 1),
                           ),
                           child: const Text(
                             "1",
@@ -164,17 +162,17 @@ class _ProfilState extends State<Profil> {
                         alignment: Alignment.center,
                         margin: const EdgeInsets.all(0),
                         padding: const EdgeInsets.all(0),
-                        width: 50,
-                        height: 50,
+                        width: 100,
+                        height: 100,
                         decoration: const BoxDecoration(
-                          color: Color(0xff5f75e6),
+                          color: Color(0xffffffff),
                           shape: BoxShape.circle,
                         ),
-                        child: const ImageIcon(
-                          NetworkImage(
-                              "https://cdn3.iconfinder.com/data/icons/real-estate-126/210/949-128.png"),
-                          size: 30,
-                          color: Color(0xffffffff),
+                        child: Image(
+                          image: NetworkImage(
+                              "https://cdn3.iconfinder.com/data/icons/family-member-flat-happy-family-day/512/Son-1024.png"),
+                          width: 100,
+                          height: 100,
                         ),
                       ),
                       Padding(
@@ -182,11 +180,11 @@ class _ProfilState extends State<Profil> {
                         child: TextButton(
                           onPressed: () {
                             Get.toNamed('/halamanbayi', arguments: {
-                                  'id': arguments['id'],
-                                });
+                              'id': arguments['id'],
+                            });
                           },
                           child: const Text(
-                            "Data Bayi",
+                            "Bayi",
                             textAlign: TextAlign.start,
                             overflow: TextOverflow.clip,
                             style: TextStyle(
@@ -218,125 +216,27 @@ class _ProfilState extends State<Profil> {
                         alignment: Alignment.center,
                         margin: const EdgeInsets.all(0),
                         padding: const EdgeInsets.all(0),
-                        width: 50,
-                        height: 50,
+                        width: 100,
+                        height: 100,
                         decoration: const BoxDecoration(
-                          color: Color(0xffe260b7),
+                          color: Color(0xffffffff),
                           shape: BoxShape.circle,
                         ),
-                        child: const ImageIcon(
-                          NetworkImage(
-                              "https://cdn1.iconfinder.com/data/icons/budicon-chroma-design/24/scissor-128.png"),
-                          size: 30,
-                          color: Color(0xffffffff),
+                        child: const Image(
+                          image: NetworkImage(
+                              "https://cdn3.iconfinder.com/data/icons/avatar-batch-1/512/profile_icon_2-20-1024.png"),
+                          width: 90,
+                          height: 90,
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed('/dokteranak');
+                          },
                           child: const Text(
                             "Dokter",
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              color: Color(0xff000000),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(0),
-                  padding: const EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                    color: const Color(0xffffffff),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(0),
-                        padding: const EdgeInsets.all(0),
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          color: Color(0xffee9d30),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const ImageIcon(
-                          NetworkImage(
-                              "https://cdn1.iconfinder.com/data/icons/strongicon-vol-05/24/home-house-housing-dwelling-residence-1-15-128.png"),
-                          size: 30,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Riwayat",
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              color: Color(0xff000000),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(0),
-                  padding: const EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                    color: const Color(0xffffffff),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(0),
-                        padding: const EdgeInsets.all(0),
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          color: Color(0xff5cde75),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const ImageIcon(
-                          NetworkImage(
-                              "https://cdn4.iconfinder.com/data/icons/outdoor-nature-and-ecology-vol-2/24/_animal_care-128.png"),
-                          size: 30,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Resep",
                             textAlign: TextAlign.start,
                             overflow: TextOverflow.clip,
                             style: TextStyle(

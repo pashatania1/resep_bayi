@@ -1,4 +1,4 @@
-package com.example.simpasi
+package com.ubig.simpasi
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -4,9 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:simpasi/const.dart';
 import 'package:http/http.dart' as http;
-import 'package:simpasi/pages/artikel.dart';
-import 'package:simpasi/pages/homebaby.dart';
-import 'package:simpasi/pages/profil.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -33,15 +30,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future login(String email, String password) async {
-    // var uri = Uri.parse('http://$ip/$folder/login.php');
-    // var response = await http.post(
-    //   uri,
-    //   body: {
-    //     "email": email,
-    //     "password": password,
-    //   },
-    // );
-
     var request = http.MultipartRequest(
       'POST',
       Uri.parse('http://$ip/$folder/user/search.php'),
@@ -287,7 +275,21 @@ class _LoginPageState extends State<LoginPage> {
                       height: 40,
                       minWidth: MediaQuery.of(context).size.width,
                     ),
-                    const Padding(
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                      child: Text(
+                        "",
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14,
+                          color: Color(0xff000000),
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -308,15 +310,20 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          Text(
-                            "SignUp",
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              color: Color(0xff000000),
+                          InkWell(
+                            onTap: () {
+                              Get.toNamed('/signup');
+                            },
+                            child: Text(
+                              "SignUp",
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.clip,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                color: Color(0xff000000),
+                              ),
                             ),
                           ),
                         ],

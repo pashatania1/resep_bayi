@@ -1,2 +1,2 @@
-String ip = '192.168.18.11';
+String ip = '10.213.6.236';
 String folder = 'API_simpasi';

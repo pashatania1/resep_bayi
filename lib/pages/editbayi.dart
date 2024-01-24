@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,45 +6,52 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
-import 'package:async/async.dart';
-import 'package:jiffy/jiffy.dart';
-import 'package:path/path.dart' as path;
 import 'package:simpasi/const.dart';
 
-class TambahPertumbuhan extends StatefulWidget {
-  const TambahPertumbuhan({super.key});
+class EditBayi extends StatefulWidget {
+  const EditBayi({super.key});
 
   @override
-  State<TambahPertumbuhan> createState() => _TambahPertumbuhanState();
+  State<EditBayi> createState() => _EditBayiState();
 }
 
-class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
+class _EditBayiState extends State<EditBayi> {
   var arguments = Get.arguments;
-  var _date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  TextEditingController nama = TextEditingController();
+  TextEditingController _date = TextEditingController();
   TextEditingController berat_badan = TextEditingController();
   TextEditingController panjang_badan = TextEditingController();
   TextEditingController lingkar_kepala = TextEditingController();
+  String? gender;
+  File? imageFile;
 
-  Future addData(String tgl_cek, String berat_badan, String panjang_badan,
-      String lingkar_kepala, String id_bayi, String status) async {
-    var uri = Uri.parse('http://$ip/$folder/bayi/insertpertumbuhan.php');
-    var request = http.MultipartRequest("POST", uri);
-
-    request.fields['tgl_cek'] = tgl_cek;
-    request.fields['berat_badan'] = berat_badan;
-    request.fields['panjang_badan'] = panjang_badan;
-    request.fields['lingkar_kepala'] = lingkar_kepala;
-    request.fields['id_bayi'] = id_bayi;
-    request.fields['status'] = status;
-
-    var response = await request.send();
+  Future updateDataBayi(
+      String id,
+      String nama,
+      String tgl_lahir,
+      String gender,
+      String berat_badan,
+      String panjang_badan,
+      String lingkar_kepala,
+      String id_user) async {
+    var response;
+    var uri = Uri.parse('http://$ip/$folder/bayi/update.php');
+    response = await http.post(uri, body: {
+      "id": id,
+      "nama": nama,
+      "tgl_lahir": tgl_lahir,
+      "gender": gender,
+      "berat_badan": berat_badan,
+      "panjang_badan": panjang_badan,
+      "lingkar_kepala": lingkar_kepala,
+      "id_user": id_user,
+    });
 
     if (response.statusCode == 200) {
       return Fluttertoast.showToast(
         backgroundColor: Colors.green,
         textColor: Colors.white,
-        msg: 'Data Berhasil Ditambahkan',
+        msg: 'Data Berhasil Diubah',
         toastLength: Toast.LENGTH_SHORT,
       );
     } else {
@@ -58,108 +64,15 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
     }
   }
 
-  String statusGiziBB(String berat_badan, String gender) {
-    int bb = int.parse(berat_badan);
-    var status = '0';
-    var bulan1 = DateTime.parse(arguments['tgl_lahir']);
-    var bulan2 = DateTime.now();
-    var diff = Jiffy.parseFromDateTime(bulan2)
-        .diff(Jiffy.parseFromDateTime(bulan1), unit: Unit.month);
-    var usia = diff.round();
-    print("Usia $usia");
-    List bbL = [
-      [2.5, 2.9, 3.3, 3.9, 4.3],
-      [3.4, 3.9, 4.5, 5.1, 5.7],
-      [4.4, 4.9, 5.6, 6.3, 7.0],
-      [5.1, 5.6, 6.4, 7.2, 7.9],
-      [5.6, 6.2, 7.0, 7.9, 8.6],
-      [6.1, 6.7, 7.5, 8.4, 9.2],
-      [6.4, 7.1, 7.9, 8.9, 9.7],
-      [6.7, 7.4, 8.3, 9.3, 10.2],
-      [7.0, 7.7, 8.6, 9.6, 10.5],
-      [7.2, 7.9, 8.9, 10.0, 10.9],
-      [7.5, 8.2, 9.2, 10.3, 11.2],
-      [7.7, 8.4, 9.4, 10.5, 11.5],
-      [7.8, 8.6, 9.6, 10.8, 11.8],
-      [8.0, 8.8, 9.9, 11.1, 12.1],
-      [8.2, 9.0, 10.1, 11.3, 12.4],
-      [8.4, 9.2, 10.3, 11.6, 12.7],
-      [8.5, 9.4, 10.5, 11.8, 12.9],
-      [8.7, 9.6, 10.7, 12.0, 13.2],
-      [8.9, 9.7, 10.9, 12.3, 13.5],
-      [9.0, 9.9, 11.1, 12.5, 13.7],
-      [9.2, 10.1, 11.3, 12.7, 14.0],
-      [9.3, 10.3, 11.5, 13.0, 14.3],
-      [9.5, 10.5, 11.8, 13.2, 14.5],
-      [9.7, 10.6, 12.0, 13.4, 14.8],
-      [9.8, 10.8, 12.2, 13.7, 15.1],
-    ];
-
-    List bbP = [
-      [2.4, 2.8, 3.2, 3.7, 4.2],
-      [3.2, 3.6, 4.2, 4.8, 5.4],
-      [4.0, 4.5, 5.1, 5.9, 6.5],
-      [4.6, 5.1, 5.8, 6.7, 7.4],
-      [5.1, 5.6, 6.4, 7.3, 8.1],
-      [5.5, 6.1, 6.9, 7.8, 8.7],
-      [5.8, 6.4, 7.3, 8.3, 9.2],
-      [6.1, 6.7, 7.6, 8.7, 9.6],
-      [6.3, 7.0, 7.9, 9.0, 10.0],
-      [6.6, 7.3, 8.2, 9.3, 10.4],
-      [6.8, 7.5, 8.5, 9.6, 10.7],
-      [7.0, 7.7, 8.7, 9.9, 11.0],
-      [7.1, 7.9, 8.9, 10.2, 11.3],
-      [7.3, 8.1, 9.2, 10.4, 11.6],
-      [7.5, 8.3, 9.4, 10.7, 11.9],
-      [7.7, 8.5, 9.6, 10.9, 12.2],
-      [7.8, 8.7, 9.8, 11.2, 12.5],
-      [8.0, 8.8, 10.0, 11.4, 12.7],
-      [8.2, 9.0, 10.2, 11.6, 13.0],
-      [8.3, 9.2, 10.4, 11.9, 13.3],
-      [8.5, 9.4, 10.6, 12.1, 13.5],
-      [8.7, 9.6, 10.9, 12.4, 13.8],
-      [8.8, 9.8, 11.1, 12.6, 14.1],
-      [9.0, 9.9, 11.3, 12.8, 14.3],
-      [9.2, 10.1, 11.5, 13.1, 14.6],
-    ];
-
-    if (gender == 'L') {
-      if (bb <= bbL[usia][0]) {
-        status = '1';
-      } else if (bb > bbL[usia][0] && bb <= bbL[usia][1]) {
-        status = '2';
-      } else if (bb > bbL[usia][1] && bb <= bbL[usia][2]) {
-        status = '3';
-      } else if (bb > bbL[usia][2] && bb <= bbL[usia][3]) {
-        status = '4';
-      } else if (bb > bbL[usia][3] && bb <= bbL[usia][4]) {
-        status = '5';
-      } else if (bb > bbL[usia][4]) {
-        status = '6';
-      }
-    } else if (gender == 'P') {
-      if (bb <= bbP[usia][0]) {
-        status = '1';
-      } else if (bb > bbP[usia][0] && bb <= bbP[usia][1]) {
-        status = '2';
-      } else if (bb > bbP[usia][1] && bb <= bbP[usia][2]) {
-        status = '3';
-      } else if (bb > bbP[usia][2] && bb <= bbP[usia][3]) {
-        status = '4';
-      } else if (bb > bbP[usia][3] && bb <= bbP[usia][4]) {
-        status = '5';
-      } else if (bb > bbP[usia][4]) {
-        status = '6';
-      }
-    }
-    return status;
-  }
-
   @override
   Widget build(BuildContext context) {
-    print("Berat Badan ${arguments['berat_badan']}");
-    print("Gender ${arguments['berat_badan']}");
-    
+    nama.text = arguments['nama'];
+    _date.text = arguments['tgl_lahir'];
+    gender = arguments['gender'];
+    berat_badan.text = arguments['berat_badan'];
+    panjang_badan.text = arguments['panjang_badan'];
+    lingkar_kepala.text = arguments['lingkar_kepala'];
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(244, 248, 216, 157),
       appBar: AppBar(
@@ -176,7 +89,7 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
           size: 24,
         ),
         title: Text(
-          'Pertumbuhan',
+          'Edit Data Bayi',
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontStyle: FontStyle.normal,
@@ -204,7 +117,7 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
               const Padding(
                 padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
                 child: Text(
-                  "Tambah Data Pertumbuhan",
+                  "Edit Data Bayi",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
                   style: TextStyle(
@@ -214,6 +127,182 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
                     color: Color(0xff000000),
                   ),
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                child: TextField(
+                  controller: nama,
+                  obscureText: false,
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 14,
+                    color: Color(0xff000000),
+                  ),
+                  decoration: InputDecoration(
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          const BorderSide(color: Color(0xFFF2982E), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          const BorderSide(color: Color(0xFFF2982E), width: 1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          const BorderSide(color: Color(0xFFF2982E), width: 1),
+                    ),
+                    hintText: arguments['nama'],
+                    hintStyle: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 14,
+                      color: Color(0xff000000),
+                    ),
+                    filled: true,
+                    fillColor: const Color(0xffffffff),
+                    isDense: false,
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    prefixIcon: const Icon(Icons.person,
+                        color: Color(0xff212435), size: 24),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                child: TextField(
+                  controller: _date,
+                  obscureText: false,
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 14,
+                    color: Color(0xff000000),
+                  ),
+                  decoration: InputDecoration(
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          const BorderSide(color: Color(0xFFF2982E), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          const BorderSide(color: Color(0xFFF2982E), width: 1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          const BorderSide(color: Color(0xFFF2982E), width: 1),
+                    ),
+                    hintText: arguments['tgl_lahir'],
+                    hintStyle: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 14,
+                      color: Color(0xff000000),
+                    ),
+                    filled: true,
+                    fillColor: const Color(0xffffffff),
+                    isDense: false,
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    prefixIcon: const Icon(Icons.calendar_today_rounded,
+                        color: Color(0xff212435), size: 24),
+                  ),
+                  onTap: () async {
+                    DateTime? tanggal = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2018),
+                        lastDate: DateTime.now());
+
+                    if (tanggal != null) {
+                      setState(() {
+                        _date.text = DateFormat('yyyy-MM-dd').format(tanggal);
+                      });
+                    }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Radio(
+                            value: 'L',
+                            groupValue: gender,
+                            onChanged: (value) {
+                              setState(() {
+                                gender = value.toString();
+                              });
+                            },
+                            activeColor: Color(0xff3a57e8),
+                            autofocus: false,
+                            splashRadius: 20,
+                            hoverColor: Color(0x42000000),
+                          ),
+                          Text(
+                            "Laki-laki",
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 14,
+                              color: Color(0xff000000),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Radio(
+                            value: 'P',
+                            groupValue: gender,
+                            onChanged: (value) {
+                              setState(() {
+                                gender = value.toString();
+                              });
+                            },
+                            activeColor: Color(0xff3a57e8),
+                            autofocus: false,
+                            splashRadius: 20,
+                            hoverColor: Color(0x42000000),
+                          ),
+                          Text(
+                            "Perempuan",
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 14,
+                              color: Color(0xff000000),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ]),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -244,7 +333,7 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
                       borderSide:
                           const BorderSide(color: Color(0xFFF2982E), width: 1),
                     ),
-                    hintText: "Berat Badan (kg)",
+                    hintText: arguments['berat_badan'],
                     hintStyle: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
@@ -290,7 +379,7 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
                       borderSide:
                           const BorderSide(color: Color(0xFFF2982E), width: 1),
                     ),
-                    hintText: "Panjang/Tinggi Badan (cm)",
+                    hintText: arguments['panjang_badan'],
                     hintStyle: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
@@ -302,7 +391,7 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
                     isDense: false,
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    prefixIcon: const Icon(Icons.height_outlined,
+                    prefixIcon: const Icon(Icons.height,
                         color: Color(0xff212435), size: 24),
                   ),
                 ),
@@ -336,7 +425,7 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
                       borderSide:
                           const BorderSide(color: Color(0xFFF2982E), width: 1),
                     ),
-                    hintText: "Lingkar Kepala (cm)",
+                    hintText: arguments['lingkar_kepala'],
                     hintStyle: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
@@ -348,7 +437,7 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
                     isDense: false,
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    prefixIcon: const Icon(Icons.roundabout_left_rounded,
+                    prefixIcon: const Icon(Icons.roundabout_left,
                         color: Color(0xff212435), size: 24),
                   ),
                 ),
@@ -357,19 +446,25 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                 child: MaterialButton(
                   onPressed: () {
-                    addData(
-                        _date,
+                    updateDataBayi(
+                        arguments['id'],
+                        nama.text,
+                        _date.text,
+                        gender!,
                         berat_badan.text,
                         panjang_badan.text,
                         lingkar_kepala.text,
-                        arguments['id'],
-                        statusGiziBB(berat_badan.text, arguments['gender']));
+                        arguments['id_user']);
                     Get.toNamed('/detailbayi', arguments: {
                       'id': arguments['id'],
                       'nama': arguments['nama'],
-                      'gender': arguments['gender'],
                       'tgl_lahir': arguments['tgl_lahir'],
+                      'gender': arguments['gender'],
+                      'berat_badan': arguments['berat_badan'],
+                      'panjang_badan': arguments['panjang_badan'],
+                      'lingkar_kepala': arguments['lingkar_kepala'],
                       'foto': arguments['foto'],
+                      'id_user': arguments['id_user'],
                     });
                   },
                   color: const Color(0xFFF2982E),
@@ -379,7 +474,7 @@ class _TambahPertumbuhanState extends State<TambahPertumbuhan> {
                   ),
                   padding: const EdgeInsets.all(16),
                   child: const Text(
-                    "Tambah",
+                    "Edit",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,

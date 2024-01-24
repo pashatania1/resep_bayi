@@ -1,0 +1,73 @@
+"id","judul","isi","kategori","tgl_upload"
+"id","nama","tgl_lahir","gender","berat_badan","panjang_badan","lingkar_kepala","id_user","foto"
+"2","Anas","2022-09-09","L","3","52","12","2","KNgRwEXcf8.jpg"
+"5","Lucky","2023-09-27","L","4","52","12","6","zLEjp4Wi7m.jpg"
+"6","Shaquille","2022-02-02","L","3","51","10","6","TQorctjLbm.jpg"
+"7","Ari","2022-09-01","L","4","50","10","2","NpN4D7YdKX.jpg"
+"8","Chandra","2023-09-02","P","4","52","12","2","4QHi6HrANp.jpg"
+"9","Isabella","2023-09-24","P","3","50","12","2","PFm1P2tyMM.jpg"
+"10","Laili","2023-08-08","P","3","50","12","7","XPK57e8izA.jpg"
+"11","Richard","2023-02-02","L","3","50","12","7","pDGdI6UX1Z.jpg"
+"12","Susan","2023-01-05","P","3","50","10","8","Oi72QKvehp.jpg"
+"13","Lintang","2023-01-10","L","3","50","12","9","hlRF8iGdNf.jpg"
+"id","nama","spesialis","telp","foto"
+"1","dr. Ayling Sanjaya, M.Kes.,Sp.A.","Anak","+62810485706","foto_02.jpg"
+"2","dr. Prasodjo, Sp.A","Anak","+622800809332","foto_08.jpg"
+"3","dr. Sri Kusumawardani, Sp.A","Anak","+6288175441033","foto_05.jpg"
+"4","dr. Rahmawati Aminingrum, Sp.A., M.Biomed","Gizi Anak","+6238385892927","foto_06.jpg"
+"5","dr. Susanto Nugroho, Sp.A (K)","Tumbuh Kembang Anak","+6264286756460","foto_09.jpg"
+"6","dr. Harjoedi Adji Tjahjono, Sp.A (K)","Tumbuh Kembang Anak","+6285483057666 ","foto_13.jpg"
+"7","dr. Ery Olivianto, Sp.A","Anak","+62767434317","foto_03.jpg"
+"8","dr. Sidharta Martohusodo, Sp.A","Anak","+62862653010157","foto_04.jpg"
+"9","dr. Ariani, Sp.A","Anak","+62229849614 ","foto_10.jpg"
+"id","tgl_cek","berat_badan","tinggi_badan","lingkar_kepala","id_bayi","status"
+"1","2023-09-27","12","70","15","7","3"
+"3","2023-09-29","12","60","12","9","3"
+"17","2023-09-29","4","12","12","8","5"
+"18","2023-09-30","4","50","12","5","5"
+"19","2023-10-01","5","51","12","10","4"
+"30","2023-10-02","10","51","12","10","6"
+"31","2023-10-02","10","51","12","2","4"
+"32","2023-10-02","14","72","12","5","6"
+"33","2023-10-02","10","52","15","12","5"
+"34","2023-10-03","6","12","12","5","6"
+"35","2023-10-03","12","60","15","12","6"
+"36","2023-10-03","10","60","15","13","5"
+"id","judul","status","usia","id_dsa","bahan","bumbu","cara_membuat","buah","foto"
+"1","Bubur Singkong Isi Ikan dan Ayam dengan Saus Jeruk","3","6","9","75 gr singkong putih, rebus dan haluskan
+15 gr (2 sdm datar) daging ikan kembung cincang halus
+15 gr daging ayam cincang rebus
+250 ml air kaldu ayam
+5 gr (1 sdt) minyak kelapa
+20 gr (2 sdm) bayam segar, potong halus","1 lembar daun salam
+1 batang sereh
+1 siung bawang merah
+1 siung bawang putih
+","Tumis bumbu halus, lalu masukkan daun salam dan sereh.
+Tambahkan air kaldu, masukkan singkong putih, daging ikan, daging ayam cincang rebus, aduk-aduk hingga setengah matang.
+Masukkan daun bayam, aduk hingga matang. Jika airnya mengental dapat ditambahkan air matang.
+Angkat, lalu saring halus atau diblender. Sebelum disajikan tambahkan saus jeruk.","100 gr (3 buah kecil) jeruk manis diambil sarinya","singkong.jpg"
+"2","Bubur Soto Ayam Santan","3","9","1","60 gr (6 sdm) Nasi putih
+45 gr (4.5 sdm) Daging ayam cincang
+30 gr (1 buah kecil) Tahu
+30 gr (3 sdm) Labu siam
+15 gr (1.5 sdm) wortel
+1 lembar Salam
+1 batang Sereh
+1 lembar Daun jeruk
+5 gr (1 sdm) Minyak goreng
+30 ml (3 sdm) Santan
+300 ml Air kaldu ayam","1 siung bawang merah
+1 siung bawang putih
+1 cm Kunyit
+1 cm Jahe","Tumis bumbu halus sampai harum, masukan ayam cincang sampai berubah warna.
+Masukan air kaldu ayam, santan, salam, sereh dan daun jeruk masak sampai mendidih.
+Masukan nasi, tahu dan labu siam dan wortel yang sudah diiris kecil-kecil masak sampai semua bahan matang dan empuk.
+Haluskan sampai tekstur yang diinginkan. Sajikan selagi hangat.","100 gr (3 buah kecil) Jeruk (diambil sarinya)","soto.jpg"
+"id","nama","email","telp","password","foto"
+"2","Putri","putri@gmail.com","081234567890","827ccb0eea8a706c4c34a16891f84e7b","94t09Onfse.jpg"
+"5","Jennie","jennie@gmail.com","09876543210","827ccb0eea8a706c4c34a16891f84e7b","nbEE7liL41.jpg"
+"6","Pasha","pasha@gmail.com","081234567890","827ccb0eea8a706c4c34a16891f84e7b","IGKvqok6OY.jpg"
+"7","Annisa","nisa@gmail.com","08123456789","827ccb0eea8a706c4c34a16891f84e7b","wS2XfahZbF.jpg"
+"8","Tri Gunanto","3gun@gmail.com","08113307212","827ccb0eea8a706c4c34a16891f84e7b","XqPwARmDfx.jpg"
+"9","Affan","affan@gmail.com","08113307212 ","827ccb0eea8a706c4c34a16891f84e7b","gdNhHoH7Fx.jpg"

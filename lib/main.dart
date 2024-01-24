@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:simpasi/pages/homebaby.dart';
-import 'package:simpasi/pages/login.dart';
 import 'package:simpasi/pages/splash.dart';
 import 'package:simpasi/routes.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -20,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 5)),
+        future: Future.delayed(const Duration(seconds: 3)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();
@@ -28,7 +25,7 @@ class _MyAppState extends State<MyApp> {
             return GetMaterialApp(
               title: "SIMPASI",
               debugShowCheckedModeBanner: false,
-              initialRoute: '/home',
+              initialRoute: '/login',
               getPages: appRoutes(),
             );
           }

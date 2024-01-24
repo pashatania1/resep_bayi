@@ -51,6 +51,31 @@ class _DetailBayiState extends State<DetailBayi> {
     }
   }
 
+  String statusBayi(String s) {
+    switch (s) {
+      case '1':
+        return "Gizi Buruk";
+        break;
+      case '2':
+        return "Gizi Kurang";
+        break;
+      case '3':
+        return "Gizi Baik";
+        break;
+      case '4':
+        return "Berisiko Gizi Lebih";
+        break;
+      case '5':
+        return "Gizi Lebih";
+        break;
+      case '6':
+        return "Obesitas";
+        break;
+      default:
+        return "Salah";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,7 +194,7 @@ class _DetailBayiState extends State<DetailBayi> {
                           ]),
                           Column(children: [
                             Text(
-                              "Berat Badan",
+                              "Berat Badan (kg)",
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.clip,
                               style: TextStyle(
@@ -182,7 +207,7 @@ class _DetailBayiState extends State<DetailBayi> {
                           ]),
                           Column(children: [
                             Text(
-                              "Tinggi Badan",
+                              "Tinggi Badan (cm)",
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.clip,
                               style: TextStyle(
@@ -195,7 +220,7 @@ class _DetailBayiState extends State<DetailBayi> {
                           ]),
                           Column(children: [
                             Text(
-                              "Lingkar Kepala",
+                              "Lingkar Kepala (cm)",
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.clip,
                               style: TextStyle(
@@ -230,7 +255,7 @@ class _DetailBayiState extends State<DetailBayi> {
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.normal,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   color: Color(0xff000000),
@@ -243,7 +268,7 @@ class _DetailBayiState extends State<DetailBayi> {
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.normal,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   color: Color(0xff000000),
@@ -256,7 +281,7 @@ class _DetailBayiState extends State<DetailBayi> {
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.normal,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   color: Color(0xff000000),
@@ -269,7 +294,7 @@ class _DetailBayiState extends State<DetailBayi> {
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.normal,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   color: Color(0xff000000),
@@ -278,11 +303,11 @@ class _DetailBayiState extends State<DetailBayi> {
                             ]),
                             Column(children: [
                               Text(
-                                data[index]['status'],
+                                statusBayi(data[index]['status']),
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.normal,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   color: Color(0xff000000),
@@ -301,7 +326,7 @@ class _DetailBayiState extends State<DetailBayi> {
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.clip,
                         style: TextStyle(
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.normal,
                           fontStyle: FontStyle.normal,
                           fontSize: 14,
                           color: Color(0xff000000),
